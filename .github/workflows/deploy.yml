@@ -2,7 +2,7 @@ name: Deploy (systemd-lite)
 
 on:
   push:
-    branches: [ main ]    # main 브랜치에 push될 때 배포 진행
+    branches: [main] # main 브랜치에 push될 때 배포 진행
 
 jobs:
   deploy:
