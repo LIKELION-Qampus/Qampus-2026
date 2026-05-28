@@ -36,10 +36,19 @@ def create(request):
 
 def detail(request, id):
     post = get_object_or_404(Post, id=id)
+    comments = post.comments.all().order_by('-created_at')
+    comment_count = post.comments.count()
+    reply_count = Reply.objects.filter(comment__post=post).count()
+    total_comment_count = comment_count + reply_count
 
     if request.method == 'POST':
         content = request.POST.get('content')
-    return render(request, 'Qampus/detail.html', {'post':post, 'comments': comments})
+    return render(request, 'Qampus/detail.html', 
+                {'post':post,
+                'comments': comments,
+                'like_count': post.like_count,
+                'scrap_count': post.scrap_count,
+                'comment_count': total_comment_count,})
 
 def update(request, id):
     post = get_object_or_404(Post, id=id)
