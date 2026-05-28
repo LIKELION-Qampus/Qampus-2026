@@ -8,6 +8,11 @@
 <body>
     {% load humanize %}
     <h2>질의응답</h2><hr>
+    <button onclick="document.getElementById('menu').showModal()">⋮</button>
+    <dialog id="menu">
+        <a href="{% url 'Qampus:creat' %}">질문 올리기</a>
+    </dialog>
+
     <form action="{% url 'Qampus:main' %}" method="POST">
         {% csrf_token %}
         
@@ -29,7 +34,11 @@
     {% for post in posts %}
         <p><a href="{% url 'Qampus:detail' post.id %}">{{ post.title }}</a></p>
         <p>{{ post.content }}</p>
-        <p>{{ post.created_at|naturaltime }}</p><hr>
+        <p>{{ post.created_at|naturaltime }}</p>
+
+        <p>{{ post.post_like.count }}</p>
+        <p>{{ post.post_answer.count }}</p>
+        <hr>
     {% empty %}
         <p>아직 작성된 질문이 없어요</p>
         #수업 카테고리에서는 수업, 학교 프로그램은 학교 프로그램으로 나오는건지? 그러면 전체는??
