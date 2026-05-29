@@ -241,3 +241,4 @@ def like_reply(request, reply_id):
     reply.save()
     request.session['liked_replies'] = liked_replies
     return redirect('Qampus:detail', reply.comment.post.id)
+
