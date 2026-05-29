@@ -55,7 +55,7 @@ def detail(request, id):
                 'like_count': like_count,
                 'scrap_count': scrap_count,
                 'comment_count': total_comment_count,
-                'content':content})
+                })
 
 def update(request, id):
     post = get_object_or_404(Post, id=id)
@@ -164,3 +164,23 @@ def delete_reply(request, reply_id):
     reply.delete()
 
     return redirect("Qampus:detail", post_id)
+
+
+#게시글 스크랩
+def scrap_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    scrapped_posts = request.session.get('scrapped_posts', [])
+
+    if post_id in scrapped_posts:
+        if post.scrap_count > 0:
+            post.scrap_count -= 1
+        scrapped_posts.remove(post_id)
+    else:
+        post.scrap_count += 1
+        scrapped_posts.append(post_id)
+
+    post.save()
+    request.session['scrapped_posts'] = scrapped_posts
+
+    return redirect('Qampus:detail', post.id)
