@@ -112,6 +112,7 @@
             <!-- 게시글 스크랩 -->
             <form class="reaction-form" 
             method="POST" action="{% url 'Qampus:scrap_post' post.id %}">
+            {% csrf_token %}
               <button
                 class="scrap-box"
                 type="submit"
