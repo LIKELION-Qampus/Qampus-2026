@@ -1,7 +1,4 @@
 .post-cancel-button {
-  position: absolute;
-  left: 20px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,12 +12,6 @@
   display: block;
 }
 
-/* 수정 페이지 완료 버튼은 활성처럼 파란색으로 보이게 */
-.post-ok-btn {
-  color: #2173f1;
-}
-
-/* 카테고리가 4개 이상이거나 글자가 길 때 안 깨지게 */
 .select-category {
   justify-content: flex-start;
 }

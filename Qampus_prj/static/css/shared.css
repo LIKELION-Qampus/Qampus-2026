@@ -102,33 +102,80 @@ body {
 .header {
   height: 56px;
   padding: 0px 20px;
+
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 
   border-bottom: 1px solid #eeeeee;
-  gap: 10px;
   position: relative;
 }
 
 .header h1 {
-  position: absolute;
-  left: 52px;
+  margin: 0;
 
+  color: #000;
   font-size: 18px;
   font-weight: 500;
   line-height: 1;
+  position: absolute;
+  left: 50px;
 }
 
-.head-left-img {
+.header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 왼쪽 버튼/링크 공통 */
+.header-left {
   position: absolute;
   left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+
   width: 24px;
   height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
 }
 
-.head-right-img {
+/* 오른쪽 버튼/링크 공통 */
+.header-right {
   position: absolute;
   right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* 헤더 아이콘 */
+.head-left-img,
+.head-right-img {
   width: 24px;
   height: 24px;
+  display: block;
+}
+
+/* 오른쪽 텍스트 버튼 */
+.header-text-button {
+  color: #2173f1;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
 }

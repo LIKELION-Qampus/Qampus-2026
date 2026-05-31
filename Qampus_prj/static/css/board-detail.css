@@ -16,7 +16,6 @@ button {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .header > a:first-child {
@@ -725,10 +724,12 @@ button.comment-like-box {
   color: #2173f1;
 }
 
+.post-ok-btn {
+  position: absolute;
+  left: 0px;
+}
 
 /* 가장 아래에 */
 .hidden {
   display: none !important;
 }
-
-

@@ -15,7 +15,7 @@
     <div class="app">
       <!-- 헤더 -->
       <header class="header">
-        <a href="{% url 'Qampus:main' %}">
+        <a class="header-left" href="{% url 'Qampus:main' %}">
           <img
             class="head-left-img detail-back-button"
             src="{% static 'icons/chevron-left.svg' %}"
@@ -27,7 +27,7 @@
           <h1>질의 응답</h1>
         </a>
 
-        <button class="post-menu-button" type="button">
+        <button class="header-right post-menu-button" type="button">
           <img
             class="head-right-img post-menu-icon"
             src="{% static 'icons/ellipsis-vertical-b.svg' %}"
@@ -72,24 +72,28 @@
           <div class="reaction">
             <!-- 게시글 좋아요 -->
             <form class="reaction-form">
-  <button class="like-box" type="button" data-post-id="{{ post.id }}">
-    <img
-      class="like-img"
-      src="{% static 'icons/heart-blue.svg' %}"
-      alt="좋아요"
-    />
+              <button
+                class="like-box"
+                type="button"
+                data-post-id="{{ post.id }}"
+              >
+                <img
+                  class="like-img"
+                  src="{% static 'icons/heart-blue.svg' %}"
+                  alt="좋아요"
+                />
 
-    <img
-      class="like-img-fill"
-      src="{% static 'icons/heart-blue-fill.svg' %}"
-      alt="좋아요 선택됨"
-    />
+                <img
+                  class="like-img-fill"
+                  src="{% static 'icons/heart-blue-fill.svg' %}"
+                  alt="좋아요 선택됨"
+                />
 
-    <p class="like-text">
-      좋아요 <span class="like-num">{{ like_count }}</span>개
-    </p>
-  </button>
-</form>
+                <p class="like-text">
+                  좋아요 <span class="like-num">{{ like_count }}</span>개
+                </p>
+              </button>
+            </form>
 
             <!-- 댓글 개수 -->
             <div class="comment-box">
@@ -105,25 +109,29 @@
 
             <!-- 게시글 스크랩 -->
             <form class="reaction-form">
-  <button class="scrap-box" type="button" data-post-id="{{ post.id }}">
-    <img
-      class="scrap-img"
-      src="{% static 'icons/scrap.svg' %}"
-      alt="스크랩"
-    />
+              <button
+                class="scrap-box"
+                type="button"
+                data-post-id="{{ post.id }}"
+              >
+                <img
+                  class="scrap-img"
+                  src="{% static 'icons/scrap.svg' %}"
+                  alt="스크랩"
+                />
 
-    <img
-      class="scrap-img-fill"
-      src="{% static 'icons/scrap-fill.svg' %}"
-      alt="스크랩 선택됨"
-    />
+                <img
+                  class="scrap-img-fill"
+                  src="{% static 'icons/scrap-fill.svg' %}"
+                  alt="스크랩 선택됨"
+                />
 
-    <p class="scrap-text">
-      <span class="scrap-default-text">스크랩</span>
-      <span class="scrap-cancel-text">스크랩 취소</span>
-    </p>
-  </button>
-</form>
+                <p class="scrap-text">
+                  <span class="scrap-default-text">스크랩</span>
+                  <span class="scrap-cancel-text">스크랩 취소</span>
+                </p>
+              </button>
+            </form>
           </div>
         </section>
 
@@ -176,20 +184,22 @@
                   <button class="reply-button" type="button">답글</button>
 
                   <form class="comment-like-form">
-  <button
-    class="comment-like-box"
-    type="button"
-    data-like-type="comment"
-    data-like-id="{{ comment.id }}"
-  >
-    <img
-      class="comment-like-img"
-      src="{% static 'icons/heart-black.svg' %}"
-      alt="댓글 좋아요"
-    />
-    <span class="comment-like-count">{{ comment.like_count }}</span>
-  </button>
-</form>
+                    <button
+                      class="comment-like-box"
+                      type="button"
+                      data-like-type="comment"
+                      data-like-id="{{ comment.id }}"
+                    >
+                      <img
+                        class="comment-like-img"
+                        src="{% static 'icons/heart-black.svg' %}"
+                        alt="댓글 좋아요"
+                      />
+                      <span class="comment-like-count"
+                        >{{ comment.like_count }}</span
+                      >
+                    </button>
+                  </form>
                 </div>
 
                 <!-- 댓글 수정 -->
@@ -263,20 +273,22 @@
                   <p>{{ reply.created_at|date:"y/m/d" }}</p>
 
                   <form class="comment-like-form">
-  <button
-    class="comment-like-box"
-    type="button"
-    data-like-type="reply"
-    data-like-id="{{ reply.id }}"
-  >
-    <img
-      class="comment-like-img"
-      src="{% static 'icons/heart-black.svg' %}"
-      alt="답글 좋아요"
-    />
-    <span class="comment-like-count">{{ reply.like_count }}</span>
-  </button>
-</form>
+                    <button
+                      class="comment-like-box"
+                      type="button"
+                      data-like-type="reply"
+                      data-like-id="{{ reply.id }}"
+                    >
+                      <img
+                        class="comment-like-img"
+                        src="{% static 'icons/heart-black.svg' %}"
+                        alt="답글 좋아요"
+                      />
+                      <span class="comment-like-count"
+                        >{{ reply.like_count }}</span
+                      >
+                    </button>
+                  </form>
                 </div>
 
                 <!-- 대댓글 수정 -->
