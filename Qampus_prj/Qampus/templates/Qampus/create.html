@@ -44,6 +44,7 @@
             name="title"
             class="form-title"
             placeholder="제목을 입력해주세요."
+            required
           />
           <textarea
             type="text"
@@ -51,10 +52,12 @@
             autocomplete="off"
             class="form-content"
             placeholder="궁금한 내용을 자세히 적어주세요. 구체적일수록 더 좋은 답변을 받을 수 있어요. "
+            required
           ></textarea>
 
           <!--작성 가이드-->
           <section class="write-guide">
+
             <ul class="select-category">
               {% for category in categories %}
                 <li data-id="{{ category.id }}">#{{ category.name }}</li>
@@ -106,7 +109,7 @@
           <label for="imageInput">
             <img src="{% static 'icons/album.svg' %}" />
           </label>
-          <input type="file" accept="image/*" id="imageInput" />
+          <input name="image" type="file" accept="image/*" id="imageInput" />
 
           <!--파일 삽입-->
           <label for="fileInput">
@@ -117,6 +120,15 @@
       </main>
     </div>
   </body>
+
+  <!---->
+  {% if error %}
+  <script>
+    alert("{{ error|escapejs }}");
+  </script>
+  {% endif %}
+
+<script src="{% static 'js/board-write.js' %}"></script>
 
   <script src="{% static 'js/board-write.js' %}"></script>
 </html>
