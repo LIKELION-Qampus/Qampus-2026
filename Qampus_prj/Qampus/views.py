@@ -80,7 +80,7 @@ def detail(request, id):
         content = request.POST.get('content')
     return render(request, 'Qampus/detail.html', 
                 {'post':post,
-                 'categories': categories,
+                'categories': categories,
                 'comments': comments,
                 'like_count': like_count,
                 'scrap_count': scrap_count,

@@ -34,8 +34,6 @@ if (form) {
   form.addEventListener("submit", (event) => {
     const titleValue = titleInput.value.trim();
     const contentValue = contentInput.value.trim();
-
-    // li에 active가 붙었는지 확인
     const activeCategory = document.querySelector(".select-category li.active");
 
     if (titleValue === "") {
