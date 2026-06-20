@@ -43,11 +43,23 @@ def create(request, slug=None):
                 'categories': categories,
                 'error': '제목을 입력해주세요.',
             })
+        
+        if len(title) > 50:
+            return render(request, 'Qampus/create.html', {
+                'categories': categories,
+                'error': '제목은 50자 이내로 입력해주세요.',
+            })
 
         if not content:
             return render(request, 'Qampus/create.html', {
                 'categories': categories,
                 'error': '내용을 입력해주세요.',
+            })
+        
+        if len(content) > 1000:
+            return render(request, 'Qampus/create.html', {
+                'categories': categories,
+                'error': '내용은 1000자 이내로 입력해주세요.',
             })
 
         if not category_ids:
@@ -93,8 +105,39 @@ def update(request, id):
     post = get_object_or_404(Post, id=id)
 
     if request.method == 'POST':
-        post.title = request.POST.get('title')
-        post.content = request.POST.get('content')
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        if not title:
+            return render(request, 'Qampus/update.html', {
+                'post': post,
+                'categories': categories,
+                'error': '제목을 입력해주세요.',
+            })
+
+        if len(title) > 50:
+            return render(request, 'Qampus/update.html', {
+                'post': post,
+                'categories': categories,
+                'error': '제목은 50자 이내로 입력해주세요.',
+            })
+
+        if not content:
+            return render(request, 'Qampus/update.html', {
+                'post': post,
+                'categories': categories,
+                'error': '내용을 입력해주세요.',
+            })
+
+        if len(content) > 1000:
+            return render(request, 'Qampus/update.html', {
+                'post': post,
+                'categories': categories,
+                'error': '내용은 1000자 이내로 입력해주세요.',
+            })
+        
+        post.title = title
+        post.content = content
         image = request.FILES.get('image')
         category_ids = request.POST.getlist('category')
 
