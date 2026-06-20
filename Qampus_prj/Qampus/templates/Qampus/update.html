@@ -64,17 +64,25 @@
             maxlength="1000"
             placeholder="궁금한 내용을 자세히 적어주세요. 구체적일수록 더 좋은 답변을 받을 수 있어요."
             required
-          >
-{{ post.content }}</textarea
-          >
+          >{{ post.content }}</textarea>
 
-          <!-- 선택된 카테고리 값을 Django로 보내는 hidden input -->
+          
           <input
             type="hidden"
             name="category"
             id="categoryInput"
             value="{% for category in post.category.all %}{% if forloop.first %}{{ category.id }}{% endif %}{% endfor %}"
           />
+          {% if post.image %}
+          <img id="imagePreview" src="{{ post.image.url }}" alt="게시글 이미지" />
+          {% else %}
+          <img id="imagePreview" src="" alt="게시글 이미지" style="display:none;" />
+          {% endif %}
+
+          <label for="imageInput">
+            <img src="{% static 'icons/album.svg' %}" />
+          </label>
+          <input type="file" accept="image/*" id="imageInput" name="image" />
         </form>
 
         <!-- 작성 가이드 -->

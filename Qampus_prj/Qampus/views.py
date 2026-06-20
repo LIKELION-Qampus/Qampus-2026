@@ -28,24 +28,48 @@ def create(request, slug=None):
     categories = Category.objects.all()
 
     if request.method == 'POST':
-        title = request.POST.get('title')
-        content = request.POST.get('content')
+        print("FILES:", request.FILES)
+        print("image:", request.FILES.get('image'))
+
+        title = request.POST.get('title', '').strip()
+        content = request.POST.get('content', '').strip()
+        image = request.FILES.get('image')
+
         category_ids = request.POST.getlist('category')
-        print(f"DEBUG: category_ids = {category_ids}")
-        category_list = [get_object_or_404(Category, id=category_id) for category_id in category_ids]
+        category_ids = [category_id for category_id in category_ids if category_id.strip()]
+
+        if not title:
+            return render(request, 'Qampus/create.html', {
+                'categories': categories,
+                'error': '제목을 입력해주세요.',
+            })
+
+        if not content:
+            return render(request, 'Qampus/create.html', {
+                'categories': categories,
+                'error': '내용을 입력해주세요.',
+            })
+
+        if not category_ids:
+            return render(request, 'Qampus/create.html', {
+                'categories': categories,
+                'error': '카테고리를 선택해주세요.',
+            })
 
         post = Post.objects.create(
-            title = title,
-            content = content,
+            title=title,
+            content=content,
+            image=image,
         )
 
-        for category in category_list:
-            post.category.add(category)
+        selected_categories = Category.objects.filter(id__in=category_ids)
+        post.category.set(selected_categories)
         return redirect('Qampus:main')
     return render(request, 'Qampus/create.html', {'categories' : categories})
 
 def detail(request, id):
     post = get_object_or_404(Post, id=id)
+    categories = post.category.all()
     comments = post.comments.all().order_by('-created_at')
     comment_count = post.comments.count()
     reply_count = Reply.objects.filter(comment__post=post).count()
@@ -58,6 +82,7 @@ def detail(request, id):
         content = request.POST.get('content')
     return render(request, 'Qampus/detail.html', 
                 {'post':post,
+                'categories': categories,
                 'comments': comments,
                 'like_count': like_count,
                 'scrap_count': scrap_count,
@@ -70,8 +95,12 @@ def update(request, id):
     if request.method == 'POST':
         post.title = request.POST.get('title')
         post.content = request.POST.get('content')
-        
+        image = request.FILES.get('image')
         category_ids = request.POST.getlist('category')
+
+        if image:
+            post.image.delete()
+            post.image = image
 
         if category_ids:
             updated_categories = Category.objects.filter(id__in=category_ids)
