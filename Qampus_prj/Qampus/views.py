@@ -3,6 +3,9 @@ from .models import *
 from django.shortcuts import get_object_or_404
 from django.db.models import F
 from django.db.models import Count, Q
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def main(request):
@@ -26,8 +29,8 @@ def create(request, slug=None):
     categories = Category.objects.all()
 
     if request.method == 'POST':
-        print("FILES:", request.FILES)
-        print("image:", request.FILES.get('image'))
+        logger.debug("FILES: %s", request.FILES)
+        logger.debug("image: %s", request.FILES.get('image'))
 
         title = request.POST.get('title', '').strip()
         content = request.POST.get('content', '').strip()
@@ -87,9 +90,6 @@ def detail(request, id):
     like_count = post.like_count
     scrap_count = post.scrap_count
 
-    content = ''
-    if request.method == 'POST':
-        content = request.POST.get('content')
     return render(request, 'Qampus/detail.html', 
                 {'post':post,
                 'categories': categories,
@@ -160,7 +160,7 @@ def delete(request, id):
     return redirect('Qampus:main')
 
 def category(request, slug):
-    category = Category.objects.get(slug=slug)
+    category = get_object_or_404(Category, slug=slug)
     posts = Post.objects.filter(category=category).order_by('-created_at')
 
     return render(request, 'Qampus/category.html', {'category':category, 'posts':posts})
