@@ -294,6 +294,8 @@
   align-items: center;
 
   gap: 16px;
+
+  font-variant-numeric: tabular-nums;
 }
 
 .numOfHeart,
