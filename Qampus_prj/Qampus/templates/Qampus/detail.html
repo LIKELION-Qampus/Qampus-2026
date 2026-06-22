@@ -46,8 +46,15 @@
             />
 
             <div class="user-info">
-              <p class="user-one">질문자</p>
-              <p class="user-time">{{ post.created_at|date:"n/j H:i" }}</p>
+              <p class="user-one">
+              {% if post.is_anonymous %}
+                익명
+              {% elif post.author %}
+                {{ post.author.nickname }}
+              {% else %}
+                질문자
+              {% endif %}
+            </p>
             </div>
           </div>
 
@@ -175,7 +182,15 @@
                   src="{% static 'icons/user.svg' %}"
                   alt="사용자 이미지"
                 />
-                <p>익명</p>
+                <p>
+                  {% if comment.is_anonymous %}
+                    익명
+                  {% elif comment.author %}
+                    {{ comment.author.nickname }}
+                  {% else %}
+                    익명
+                  {% endif %}
+                </p>
 
                 <button class="comment-menu-button" type="button">
                   <img
@@ -258,6 +273,9 @@
                     placeholder="답글을 입력하세요"
                     required
                   />
+                  <label>
+                    <input type="checkbox" name="is_anonymous" /> 익명
+                  </label>
                   <button type="submit">등록</button>
                 </form>
               </div>
@@ -272,7 +290,15 @@
                   src="{% static 'icons/user.svg' %}"
                   alt="사용자 이미지"
                 />
-                <p>익명</p>
+                <p>
+                  {% if reply.is_anonymous %}
+                    익명
+                  {% elif reply.author %}
+                    {{ reply.author.nickname }}
+                  {% else %}
+                    익명
+                  {% endif %}
+                </p>
 
                 <button class="comment-menu-button" type="button">
                   <img
@@ -359,10 +385,14 @@
             placeholder="답변을 입력해보세요"
             required
           />
+          <label>
+            <input type="checkbox" name="is_anonymous" /> 익명
+          </label>
           <button class="submit" type="submit">등록</button>
         </form>
 
         <!-- 게시글 수정/삭제 모달 -->
+        {% if request.user == post.author %}
         <div class="post-modal post-option-modal hidden">
           <div class="post-modal-box modal-comment">
             <a class="edit-button" href="{% url 'Qampus:update' post.id %}">
@@ -394,6 +424,8 @@
             </button>
           </div>
         </div>
+        {% endif %}
+
         <!-- 댓글 수정/삭제 모달 -->
         <div class="post-modal comment-option-modal hidden">
           <div class="post-modal-box">

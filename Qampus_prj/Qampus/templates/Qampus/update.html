@@ -67,12 +67,25 @@
           >{{ post.content }}</textarea>
 
           
+          <input type="checkbox" name="is_anonymous" {% if post.is_anonymous %}checked{% endif %} /> 익명
+
+          
           <input
             type="hidden"
             name="category"
             id="categoryInput"
             value="{% for category in post.category.all %}{% if forloop.first %}{{ category.id }}{% endif %}{% endfor %}"
           />
+          {% if post.image %}
+          <img id="imagePreview" src="{{ post.image.url }}" alt="게시글 이미지" />
+          {% else %}
+          <img id="imagePreview" src="" alt="게시글 이미지" style="display:none;" />
+          {% endif %}
+
+          <label for="imageInput">
+            <img src="{% static 'icons/album.svg' %}" />
+          </label>
+          <input type="file" accept="image/*" id="imageInput" name="image" />
         </form>
 
         <!-- 작성 가이드 -->
