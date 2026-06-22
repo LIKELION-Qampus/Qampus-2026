@@ -24,10 +24,8 @@
 }
 
 .header {
-  border-bottom: none;
-  align-items: center;
+  border-bottom: 1px solid #fff;
 }
-
 .form-title {
   width: 100%;
   padding: 20px 30px;

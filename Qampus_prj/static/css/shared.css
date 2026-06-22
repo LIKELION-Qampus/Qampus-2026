@@ -189,3 +189,7 @@ body {
 
   background-color: #fff;
 }
+
+button {
+  cursor: pointer;
+}
