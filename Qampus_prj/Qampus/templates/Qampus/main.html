@@ -9,11 +9,11 @@
 {% load humanize %}
 
 {% block header_left %}
-    <img
-      class="head-left-img"
-      src="{% static 'icons/ChatsCircle.svg' %}"
-      alt="헤더채팅아이콘"
-    />
+  <img
+    class="head-left-img"
+    src="{% static 'icons/ChatsCircle.svg' %}"
+    alt="헤더채팅아이콘"
+  />
 {% endblock %}
 
 {% block header_title %}
@@ -21,14 +21,9 @@
 {% endblock %}
 
 {% block header_right %}
-  <img
-    class="head-right-img1"
-    src="{% static 'icons/test.png' %}"
-    alt="헤더돋보기아이콘"
-  />
   <button type="button">
     <img
-      class="head-right-img2"
+      class="head-right-img"
       src="{% static 'icons/ellipsis-vertical-b.svg' %}"
       alt="헤더점세개아이콘"
     />
@@ -41,12 +36,12 @@
     <img src="../assets/icons/pencil-b.svg" />
   </div>
 
-  <nav class="navigation">
+  <div class="navigation">
     <div class="selected_category">전체</div>
     <div class="category">수업</div>
     <div class="category">학교 프로그램</div>
     <div class="category">행정 / 절차</div>
-  </nav>
+  </div>
 
   <div class="selected_line"></div>
 {% endblock %}

@@ -9,40 +9,18 @@
   justify-content: space-between;
 }
 
-.head-left {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.head-left-img {
-  width: 28px;
-  height: 28px;
-  margin-right: 14px;
-}
-
-.header h1 {
-  color: #000;
-  margin-left: 14px;
-}
-
 .head-right {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.head-right-img1,
-.head-right-img2 {
+.head-right-img1 {
   width: 24px;
   height: 24px;
 }
 
-.head-right > button {
-  margin-left: 18px;
-  background-color: transparent;
-  border: none;
-}
+
 
 .popupPostBtn {
   display: none;

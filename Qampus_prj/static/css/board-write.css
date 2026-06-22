@@ -6,10 +6,6 @@
 }
 
 .post-ok-btn {
-  display: flex;
-  position: absolute;
-  right: 20px;
-
   border: none;
   background: none;
 
@@ -20,10 +16,6 @@
   line-height: 1;
 
   cursor: pointer;
-
-  justify-content: flex-end;
-
-  margin-right: 10px;
 }
 
 .box {
@@ -161,13 +153,4 @@
 
 .footer-attach input {
   display: none;
-}
-
-.header h1 {
-  position: absolute;
-  top: 20px !important;
-
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1;
 }
