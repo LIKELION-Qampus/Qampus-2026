@@ -39,10 +39,6 @@ def mypage(request):
     return render(request, 'accounts/mypage.html')
 
 @login_required
-def user_info(request):
-    return render(request, 'accounts/user-info.html')
-
-@login_required
 def mypost(request):
     posts = Post.objects.filter(author=request.user).order_by('-created_at')
     return render(request, 'accounts/mypost.html', {'posts': posts})

@@ -64,6 +64,10 @@
           <!--작성 가이드-->
           <section class="write-guide">
 
+            <label>
+              <input type="checkbox" name="is_anonymous" /> 익명
+            </label>
+
             <ul class="select-category">
               {% for category in categories %}
                 <li data-id="{{ category.id }}">#{{ category.name }}</li>

@@ -48,8 +48,15 @@
             />
 
             <div class="user-info">
-              <p class="user-one">질문자</p>
-              <p class="user-time">{{ post.created_at|date:"n/j H:i" }}</p>
+              <p class="user-one">
+              {% if post.is_anonymous %}
+                익명
+              {% elif post.author %}
+                {{ post.author.nickname }}
+              {% else %}
+                질문자
+              {% endif %}
+            </p>
             </div>
           </div>
 
@@ -365,6 +372,7 @@
         </form>
 
         <!-- 게시글 수정/삭제 모달 -->
+        {% if request.user == post.author %}
         <div class="post-modal post-option-modal hidden">
           <div class="post-modal-box modal-comment">
             <a class="edit-button" href="{% url 'Qampus:update' post.id %}">
@@ -396,6 +404,8 @@
             </button>
           </div>
         </div>
+        {% endif %}
+        
         <!-- 댓글 수정/삭제 모달 -->
         <div class="post-modal comment-option-modal hidden">
           <div class="post-modal-box">

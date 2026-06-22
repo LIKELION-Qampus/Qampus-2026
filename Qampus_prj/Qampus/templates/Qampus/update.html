@@ -67,6 +67,9 @@
           >{{ post.content }}</textarea>
 
           
+          <input type="checkbox" name="is_anonymous" {% if post.is_anonymous %}checked{% endif %} /> 익명
+
+          
           <input
             type="hidden"
             name="category"

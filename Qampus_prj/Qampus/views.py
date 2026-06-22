@@ -4,9 +4,10 @@ from django.shortcuts import get_object_or_404
 from django.db.models import F
 from django.db.models import Count, Q
 import logging
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 logger = logging.getLogger(__name__)
-
 
 def main(request):
     category_slug = request.GET.get('category_slug', '')
@@ -25,6 +26,7 @@ def main(request):
 
     return render(request, 'Qampus/main.html', {'posts': posts, 'selected_slug': category_slug, 'selected_sort':selected_sort})
     
+@login_required
 def create(request, slug=None):
     categories = Category.objects.all()
 
@@ -35,6 +37,7 @@ def create(request, slug=None):
         title = request.POST.get('title', '').strip()
         content = request.POST.get('content', '').strip()
         image = request.FILES.get('image')
+        is_anonymous = request.POST.get('is_anonymous') == 'on'
 
         category_ids = request.POST.getlist('category')
         category_ids = [category_id for category_id in category_ids if category_id.strip()]
@@ -73,6 +76,8 @@ def create(request, slug=None):
             title=title,
             content=content,
             image=image,
+            author=request.user,
+            is_anonymous=is_anonymous,
         )
 
         selected_categories = Category.objects.filter(id__in=category_ids)
@@ -99,13 +104,18 @@ def detail(request, id):
                 'comment_count': total_comment_count,
                 })
 
+@login_required
 def update(request, id):
     post = get_object_or_404(Post, id=id)
     categories = Category.objects.all()
 
+    if post.author != request.user:
+        return HttpResponseForbidden("수정 권한이 없습니다.")
+
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
+        is_anonymous = request.POST.get('is_anonymous') == 'on'
 
         if not title:
             return render(request, 'Qampus/update.html', {
@@ -137,6 +147,7 @@ def update(request, id):
         
         post.title = title
         post.content = content
+        post.is_anonymous = is_anonymous
         image = request.FILES.get('image')
         category_ids = request.POST.getlist('category')
 
@@ -154,8 +165,13 @@ def update(request, id):
         return redirect('Qampus:detail', id=post.id)
     return render(request, 'Qampus/update.html', {'post':post, 'categories':categories})
 
+@login_required
 def delete(request, id):
     post = get_object_or_404(Post, id=id)
+
+    if post.author != request.user:
+        return HttpResponseForbidden("삭제 권한이 없습니다.")
+    
     post.delete()
     return redirect('Qampus:main')
 
@@ -167,6 +183,7 @@ def category(request, slug):
 
 
 #답변 CRUD
+@login_required
 def create_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
@@ -181,7 +198,7 @@ def create_comment(request, post_id):
 
     return redirect("Qampus:detail", post_id)
 
-
+@login_required
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     post_id = comment.post.id
@@ -190,7 +207,7 @@ def delete_comment(request, comment_id):
 
     return redirect("Qampus:detail", post_id)
 
-
+@login_required
 def update_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     post_id = comment.post.id
@@ -206,6 +223,7 @@ def update_comment(request, comment_id):
 
 
 #대댓글 CRUD
+@login_required
 def create_reply(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
 
@@ -220,7 +238,7 @@ def create_reply(request, comment_id):
 
     return redirect("Qampus:detail", comment.post.id)
 
-
+@login_required
 def update_reply(request, reply_id):
     reply = get_object_or_404(Reply, id=reply_id)
 
@@ -233,7 +251,7 @@ def update_reply(request, reply_id):
 
     return redirect("Qampus:detail", reply.comment.post.id)
 
-
+@login_required
 def delete_reply(request, reply_id):
     reply = get_object_or_404(Reply, id=reply_id)
     post_id = reply.comment.post.id
@@ -244,6 +262,7 @@ def delete_reply(request, reply_id):
 
 
 #게시글 스크랩
+@login_required
 def scrap_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
@@ -263,6 +282,7 @@ def scrap_post(request, post_id):
     return redirect('Qampus:detail', post.id)
 
 #게시글 좋아요
+@login_required
 def like_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
@@ -276,13 +296,13 @@ def like_post(request, post_id):
         Post.objects.filter(id=post_id).update(like_count=F('like_count') + 1)
         liked_posts.append(post_id)
 
-    post.save()
     request.session['liked_posts'] = liked_posts
-
+    request.session.modified = True
     return redirect('Qampus:detail', post.id)
 
 
 #댓글/대댓글 좋아요
+@login_required
 def like_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
 
@@ -301,7 +321,7 @@ def like_comment(request, comment_id):
 
     return redirect('Qampus:detail', comment.post.id)
 
-
+@login_required
 def like_reply(request, reply_id):
     reply = get_object_or_404(Reply, id=reply_id)
 
