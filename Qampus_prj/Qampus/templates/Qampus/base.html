@@ -14,26 +14,28 @@
   </head>
   <body>
     <div class="app">
-      <header class="header">
-        <div class="head-left">
-          {% block header_left %}{% endblock %}
-          
-        </div>
-        <h1>
-          {% block header_title %}질의 응답{% endblock %}
-        </h1>
+      <div class="top-area">
+        <header class="header">
+          <div class="head-left">
+            {% block header_left %}{% endblock %}
+            
+          </div>
+          <h1>
+            {% block header_title %}질의 응답{% endblock %}
+          </h1>
 
-        <div class="head-right">
-          {% block header_right %}{% endblock %}
-          </button>
-        </div>
-      </header>
+          <div class="head-right">
+            {% block header_right %}{% endblock %}
+            </button>
+          </div>
+        </header>
 
-      <nav>
-      {% block navigation %}
-      {% endblock %}
-      </nav>
-      
+        <nav>
+        {% block navigation %}
+        {% endblock %}
+        </nav>
+      </div>
+        
       <main>
         {% block content %}{% endblock %}
       </main>
