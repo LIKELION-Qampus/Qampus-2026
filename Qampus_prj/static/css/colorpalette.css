@@ -20,10 +20,11 @@
 
   /* Text */
   --text-main: var(--color-black);
+  --text-primary: var(--gray-600);
   --text-placeholder: var(--gray-500);
   --text-disabled: var(--gray-600);
-  --text-button-active: var(--color-gray-800);
-  --text-button-disabled: var(--color-gray-500);
+  --text-button-active: var(--gray-800);
+  --text-button-disabled: var(--gray-500);
   --text-button-hover: var(--color-white);
 
   /* button */
@@ -34,8 +35,8 @@
 
   /* border */
   --border-default: var(--gray-300);
-  --border-modal: var(--color-gray-300);
+  --border-modal: var(--gray-300);
 
   /* Guide / Divider */
-  --guide-line: var(--color-gray-300);
+  --guide-line: var(--gray-300);
 }
