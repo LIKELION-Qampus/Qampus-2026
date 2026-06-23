@@ -20,6 +20,7 @@
 
 .post-ok-btn.active {
   color: var(--text-button-active);
+  cursor: pointer;
 }
 
 .box {
@@ -83,7 +84,6 @@
 .select-category {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   list-style: none;
 
@@ -97,7 +97,7 @@
 
 .select-category li {
   border-radius: 10px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--border-default);
   padding: 4px 10px;
   cursor: pointer;
 }
@@ -112,7 +112,6 @@
 .select-category li.active {
   color: var(--btn-hover-text);
   background: var(--btn-default-bg);
-  border: 1px solid var(--border-defalut);
 }
 
 .text-guide {
