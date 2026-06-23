@@ -351,12 +351,17 @@ button.comment-like-box {
 }
 
 .input-comment,
-.reply-form input {
+.reply-form input,
+.radius-left {
   border-radius: 6px 0px 0px 6px;
 }
 
-.reply-form button {
+.reply-form button,
+.radius-right {
   border-radius: 0px 6px 6px 0px;
+}
+.radius-right {
+  height: 35px;
 }
 .input-comment::placeholder {
   color: var(--text-placeholder);
@@ -561,19 +566,20 @@ button.comment-like-box {
   height: 77px;
 }
 
-.comment-edit-form,
-.comment-delete-form,
-.reply-edit-form,
-.reply-delete-form,
-.reply-form {
-  margin: 0;
-}
-
 .reply-form {
   display: flex;
   margin-top: 8px;
 }
 
+.comment-edit-form {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.reply-edit-form {
+  display: flex;
+}
 .reply-form input,
 .comment-edit-form input,
 .reply-edit-form input {
@@ -582,14 +588,13 @@ button.comment-like-box {
 
   border: none;
   outline: none;
+  border-radius: 6px 0px 0px 6px;
 
   color: var(--text-primary);
   background-color: var(--gray-100);
   padding: 10px;
 
   font-size: 13px;
-
-  margin: 0px;
 }
 
 .reply-form button,
@@ -598,6 +603,7 @@ button.comment-like-box {
 .reply-edit-form button,
 .reply-delete-form button {
   border: none;
+  border-radius: 0px 6px 6px 0px;
   background: var(--btn-default-bg);
   padding: 8px 10px;
 
