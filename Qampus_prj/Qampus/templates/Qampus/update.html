@@ -3,8 +3,8 @@
 {% block title %}질문 수정{%endblock %} 
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/board-write.css' %}" />
 <link rel="stylesheet" href="{% static 'css/board-edit.css' %}" />
+<link rel="stylesheet" href="{% static 'css/board-write.css' %}" />
 {% endblock %} 
 
 {% block header_left %}
@@ -58,49 +58,34 @@
     required
   >{{ post.content }}</textarea>
 
-  <input
-    type="checkbox"
-    name="is_anonymous"
-    {%
-    if
-    post.is_anonymous
-    %}checked{%
-    endif
-    %}
-  />
-  익명
 
-  <input
-    type="hidden"
-    name="category"
-    id="categoryInput"
-    value="{% for category in post.category.all %}{% if forloop.first %}{{ category.id }}{% endif %}{% endfor %}"
-  />
-  {% if post.image %}
-  <img id="imagePreview" src="{{ post.image.url }}" alt="게시글 이미지" />
-  {% else %}
-  <img id="imagePreview" src="" alt="게시글 이미지" style="display: none" />
-  {% endif %}
-
-  <label for="imageInput">
-    <img src="{% static 'icons/album.svg' %}" />
-  </label>
-  <input type="file" accept="image/*" id="imageInput" name="image" />
-</form>
-
-<!-- 작성 가이드 -->
 <section class="write-guide">
-  <ul class="select-category">
-    {% for category in categories %}
-    <li
-      data-category-id="{{ category.id }}"
-      class="{% if category in post.category.all %}active{% endif %}"
-    >
-      #{{ category.name }}
-    </li>
-    {% endfor %}
-  </ul>
 
+  <!--카테고리 선택-->
+    <div class="essential">
+      <div class="essential-text">
+        <p class="t1">※</p><p class="t2">필수</p>
+      </div>
+      <ul class="select-category">
+        {% for category in categories %}
+        <li
+          data-category-id="{{ category.id }}"
+          class="{% if category in post.category.all %}active{% endif %}"
+        >
+          #{{ category.name }}
+        </li>
+        {% endfor %}
+      </ul>
+
+      <input
+        type="hidden"
+        name="category"
+        id="categoryInput"
+        value="{% for category in post.category.all %}{% if forloop.first %}{{ category.id }}{% endif %}{% endfor %}"
+      />
+    </div>   
+
+  <!-- 작성 가이드 -->
   <div class="text-guide">
     ※ 질문 내용 관련 유의사항
     <p class="text-guide">
@@ -130,9 +115,39 @@
       있습니다.
     </p>
   </div>
+  <div class="text-guide">
+      <br>
+      <br>
+    </div>
 </section>
+
+  <section class="footer-attach">
+    {% if post.image %}
+    <img id="imagePreview" src="{{ post.image.url }}" alt="게시글 이미지" />
+    {% else %}
+    <img id="imagePreview" src="" alt="게시글 이미지" style="display: none" />
+    {% endif %}
+
+    <label for="imageInput">
+      <img src="{% static 'icons/album.svg' %}" />
+    </label>
+    <input type="file" accept="image/*" id="imageInput" name="image" />
+
+    <label class="anonymous-label">
+      <input
+        type="checkbox"
+        name="is_anonymous"
+        {% if post.is_anonymous %}
+        checked
+        {% endif %}
+        />익명
+    </label>
+  </section>
+
+</form>
 {% endblock %} 
 
 {% block script %}
 <script src="{% static 'js/board-edit.js' %}"></script>
+
 {% endblock %}
