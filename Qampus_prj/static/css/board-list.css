@@ -353,9 +353,16 @@
 }
 
 .postBtn.is-floating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
   position: fixed;
   bottom: 45px;
-  left: 67%;
+  left: auto;
+  right: calc((100vw - 390px) / 2 + 20px);
+  transform: none;
   gap: 0px;
 
   width: 65px;
@@ -371,8 +378,8 @@
   max-width: 0;
 
   transition:
-    opacity 0.08s ease,
-    max-width 0.01s linear 0.08s;
+    opacity 0.1s ease 0.1s,
+    max-width 0.01s linear 0.1s;
 }
 
 .postBtn.is-floating img {
