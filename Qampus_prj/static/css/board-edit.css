@@ -5,6 +5,9 @@
   padding-bottom: 80px;
 }
 
+.post-ok-btn {
+  color: var(--text-button-active);
+}
 .post-cancel-button {
   display: flex;
   align-items: center;

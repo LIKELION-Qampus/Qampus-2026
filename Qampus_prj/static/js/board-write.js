@@ -16,7 +16,6 @@ if (categorySelect) {
 }
 
 //입력값 검사
-
 function checkFormState() {
   const titleValue = titleInput.value.trim();
   const contentValue = contentInput.value.trim();
