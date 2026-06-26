@@ -43,5 +43,5 @@ jobs:
             myvenv/bin/python manage.py migrate --noinput
 
             # 3) 서비스 재시작
-            sudo systemctl restart uwsgi
+            sudo systemctl restart gunicorn
             sudo nginx -t && sudo systemctl reload nginx || true
